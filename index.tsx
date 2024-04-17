@@ -27,6 +27,12 @@ import {
 import gqlvsrestimg from "./gqlvsrest.jpg";
 // @ts-ignore
 import gqlerror from "./gqlerror.jpg";
+// @ts-ignore
+import codegen from "./codegen.jpg";
+// @ts-ignore
+import partialResults from "./partial-results.117d8efb.png";
+// @ts-ignore
+import qr from "./qr.png";
 
 const formidableLogo =
   "https://avatars2.githubusercontent.com/u/5078602?s=280&v=4";
@@ -89,6 +95,12 @@ const Presentation = () => (
     <Slide>
       <FlexBox height="100%">
         <Heading>Demo!</Heading>
+      </FlexBox>
+    </Slide>
+    <Slide>
+      <Heading>https://twittergql.fly.dev</Heading>
+      <FlexBox height="100%" flexDirection="column">
+        <Image src={qr} height="100%" />
       </FlexBox>
     </Slide>
     <Slide>
@@ -252,7 +264,7 @@ const Presentation = () => (
     </Slide>
     <Slide>
       <Heading>Dataloader</Heading>
-      <Text>Way to solve N+1 queries</Text>
+      <Text>GraphQL solution to N+1 queries</Text>
     </Slide>
     <Slide>
       <Heading>Without Dataloader</Heading>
@@ -292,13 +304,114 @@ const Presentation = () => (
         "Codegen",
         "Normalized cache",
         "Partial results",
-        "Local resolvers",
-        "Local state",
+        "Request policy",
+        "Optimistic responses",
+      ]}
+      animateListItems
+    />
+    <Slide>
+      <Heading>GraphQL over HTTP</Heading>
+      <CodePane language="typescript" theme={codePaneThemes.atomDark}>
+        {snippetFetch}
+      </CodePane>
+    </Slide>
+    <SlideLayout.List
+      title="GraphQL clients"
+      items={[
+        "Apollo Client",
+        "Relay",
+        "AWS Amplify",
+        "urql",
+        "rtk-query-gql",
+        "GraphQL Request",
+        "graphqurl",
+      ]}
+      animateListItems
+    />
+    <SlideLayout.List
+      items={[
+        "graphql-hooks",
+        "GraphQL-WS",
+        "Lokka",
+        "nanographql",
+        "GraphQL-SSE",
+        "Grafoo",
+        "GraphQL-HTTP",
+        "...and probably many more",
       ]}
       animateListItems
     />
 
-    {/* todo: frontend slides */}
+    <Slide>
+      <Heading>urql - query</Heading>
+      <CodePane language="typescript" theme={codePaneThemes.atomDark}>
+        {snippetQueryUrql}
+      </CodePane>
+    </Slide>
+
+    <Slide>
+      <Heading>urql - mutation</Heading>
+      <CodePane language="typescript" theme={codePaneThemes.atomDark}>
+        {snippetMutationUrql}
+      </CodePane>
+    </Slide>
+
+    <Slide>
+      <FlexBox height="100%" flexDirection="column">
+        <Image src={codegen} height="100%" />
+      </FlexBox>
+    </Slide>
+
+    <Slide>
+      <Heading>@graphql-codegen/cli</Heading>
+      <CodePane language="typescript" theme={codePaneThemes.atomDark}>
+        {snippetCodegen}
+      </CodePane>
+    </Slide>
+
+    <SlideLayout.List
+      title="But why?"
+      items={[
+        "Typesafety from Backend to Frontend",
+        "Compile time validation",
+        "Local documentation",
+      ]}
+      animateListItems
+    />
+
+    <SlideLayout.List
+      title="More advanced topics"
+      items={[
+        "Normalized cache and partial results",
+        "Request policy",
+        "Optimistic updates",
+      ]}
+      animateListItems
+    />
+
+    <Slide>
+      <FlexBox height="100%" flexDirection="column">
+        <Image src={partialResults} width="100%" />
+      </FlexBox>
+    </Slide>
+
+    <SlideLayout.List
+      title="urql request policy"
+      items={[
+        "cache-first - prefers cached results and falls back to sending an API request when no prior result is cached",
+        "cache-and-network - returns cached results but also always sends an API request, which is perfect for displaying data quickly while keeping it up-to-date",
+        "network-only - will always send an API request and will ignore cached results",
+        "cache-only - will always return cached results or null",
+      ]}
+      animateListItems
+    />
+
+    <Slide>
+      <Heading>Optimistic updates</Heading>
+      <CodePane language="typescript" theme={codePaneThemes.atomDark}>
+        {snippetOptimisticUpdate}
+      </CodePane>
+    </Slide>
 
     <Slide>
       <FlexBox height="100%" flexDirection="column">
@@ -314,24 +427,19 @@ const Presentation = () => (
         "Great for mobile - lower transfer, cache friendly",
         "Speed of development (codegen, power to the clients)",
         "Dataloaders",
-        "Great for public APIs (GitHub)",
+        "Great for public APIs (e.g. GitHub API)",
       ]}
       animateListItems
     />
     <SlideLayout.List
       title="Cons"
       items={[
-        "More complex frontend",
+        "More complex Frontend",
         "Normalized cache (and caching) is complex",
         "Overkill in smaller projects",
       ]}
       animateListItems
     />
-    <Slide>
-      <FlexBox height="100%" flexDirection="column">
-        <Heading>Cool stuff at the end</Heading>
-      </FlexBox>
-    </Slide>
     <Slide>
       <FlexBox height="100%" flexDirection="column">
         <Image src={gqlvsrestimg} height="100%" />
@@ -340,6 +448,11 @@ const Presentation = () => (
     <Slide>
       <FlexBox height="100%" flexDirection="column">
         <Image src={gqlerror} height="100%" />
+      </FlexBox>
+    </Slide>
+    <Slide>
+      <FlexBox height="100%" flexDirection="column">
+        <Heading>Demo!</Heading>
       </FlexBox>
     </Slide>
     <Slide>
@@ -356,18 +469,18 @@ const Presentation = () => (
           </ListItem>
           <ListItem>
             <a
-              href="https://github.com/baransu/twitter"
+              href="https://github.com/baransu/gql-twitter"
               style={{ color: "rgb(235, 229, 218)" }}
             >
-              https://github.com/baransu/twitter
+              https://github.com/baransu/gql-twitter
             </a>
           </ListItem>
           <ListItem>
             <a
-              href="https://github.com/baransu/twitter-presentation"
+              href="https://github.com/baransu/gql-twitter-presentation"
               style={{ color: "rgb(235, 229, 218)" }}
             >
-              https://github.com/baransu/twitter-presentation
+              https://github.com/baransu/gql-twitter-presentation
             </a>
           </ListItem>
           <ListItem>
@@ -412,7 +525,8 @@ type Tweet {
   content: String!
   id: ID!
   insertedAt: DateTime!
-  likes: Int!
+  likes: Int
+  likedBy(limit: Int, offset: Int): [User!]
   user: User!
 }
 `;
@@ -482,9 +596,9 @@ query Hero($episode: Episode, $withFriends: Boolean!) {
 const snippetQuery = `
 query Me {
   me {
-      id
-      username
-      avatarUrl
+    id
+    username
+    avatarUrl
   }
 }`;
 
@@ -495,7 +609,7 @@ fragment Tweet on Tweet {
   insertedAt
   likes
   user {
-      ...User
+    ...User
   }
 }
 `;
@@ -509,7 +623,7 @@ mutation SignIn($username: String!, $password: String!) {
 const snippetMutation2 = `
 mutation CreateTweet($content: String!) {
   createTweet(content: $content) {
-      ...Tweet
+    ...Tweet
   }
 }
 `;
@@ -563,21 +677,20 @@ field :me, :user do
 end`;
 
 const snippetRelayConnectionSpec = `
-{
-  user {
-    id
-    name
-    friends(first: 10, after: "opaqueCursor") {
-      edges {
-        cursor
-        node {
-          id
-          name
-        }
+user {
+  id
+  name
+  friends(first: 10, after: "opaqueCursor") {
+    edges {
+      cursor
+      node {
+        id
+        name
       }
-      pageInfo {
-        hasNextPage
-      }
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
     }
   }
 }`;
@@ -624,4 +737,92 @@ connection field :tweets, node_type: :tweet do
     Twitter.Tweets.list_tweets(pagination_args)
   end)
 end
+`;
+
+const snippetFetch = `
+fetch('http://localhost:4000/api/graphql', {
+  method: 'POST',
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    query: \`{
+      me {
+        id
+        username
+        avatarUrl
+      }
+    }\`
+  })
+})
+.then(res => res.json())
+.then(res => console.log(res.data.me))
+`;
+
+const snippetMutationUrql = `
+export const CreateTweetDocument = gql\`
+  mutation CreateTweet($content: String!) {
+    createTweet(content: $content) {
+      id
+    }
+  }
+\`
+
+const [{data, fetching, error}, executeMutation] = useMutation(CreateTweetDocument);
+`;
+
+const snippetQueryUrql = `
+export const MeQuery = gql\`
+  query Me {
+    me {
+      id
+      username
+      avatarUrl
+    }
+  }
+\`
+
+const [{ data, fetching, error }] = useQuery(MeQuery)
+
+if (fetching) return <p>Loading...</p>
+if (error) return <p>Oh no... {error.message}</p>
+return <p>{data.me.username}</p>
+`;
+
+const snippetCodegen = `
+const config: CodegenConfig = {
+  schema: "http://localhost:4000/api/graphql",
+  documents: ["src/gql/**/*.gql"],
+  generates: {
+    "./schema.gql": {
+      plugins: ["schema-ast"],
+    },
+    "./src/gql/generated.ts": {
+      plugins: [
+        "typescript",
+        "typescript-operations",
+        { "typescript-urql": { withHooks: true } },
+      ],
+    },
+  },
+};
+`;
+
+const snippetOptimisticUpdate = `
+mutation FavoriteTodo(id: $id) {
+  favoriteTodo(id: $id) {
+    id
+    favorite
+    updatedAt
+  }
+}
+const cache = cacheExchange({
+  optimistic: {
+    favoriteTodo(args, cache, info) {
+      return {
+        __typename: 'Todo',
+        id: args.id,
+        favorite: true,
+      };
+    },
+  },
+});
 `;
