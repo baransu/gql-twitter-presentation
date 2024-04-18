@@ -184,7 +184,7 @@ const Presentation = () => (
     </Slide>
     <SlideLayout.List
       title="GraphQL Query"
-      items={["Queries", "Fragments", "Mutations", "Subscriptions"]}
+      items={["Queries", "Mutations", "Subscriptions", "Fragments"]}
       animateListItems
     />
     <Slide>
@@ -558,7 +558,6 @@ type Book {
   title: String!
   author: Person!
 }
-
 type Movie {
   id: ID!
   title: String!
@@ -566,6 +565,11 @@ type Movie {
 }
 
 union Media = Book | Movie
+
+type Library {
+  id: ID!
+  media: [Media!]
+}
 `;
 
 const snippetEnum = `
@@ -629,8 +633,8 @@ mutation CreateTweet($content: String!) {
 `;
 
 const snippetSubscription = `
-subscription OnCommentAdded($postID: ID!) {
-  commentAdded(postID: $postID) {
+subscription OnCommentAdded($tweetId: ID!) {
+  commentAdded(tweetId: $tweetId) {
     id
     content
   }
